@@ -1,0 +1,7 @@
+PIL for image processing
+sys for System
+csv for CSV files
+face_recognition
+qrcode
+os for Operating System
+speech_recognition
