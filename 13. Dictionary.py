@@ -30,3 +30,8 @@ for i in month:
 # get all values
 for i in month:
     print(month[i])
+
+# search
+name = "mar"
+if name in month:
+    print(f"found = {month[name]}")

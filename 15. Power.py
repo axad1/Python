@@ -10,5 +10,5 @@ def power(base, power):
     for i in range(power):
         ans *= base
     print(ans)
-
+# calling power
 power(2,4)

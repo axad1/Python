@@ -1,6 +1,10 @@
+# strings are immutable in python
+
 s = "HELLO WORLD"
 # convert to lower
 print(s.lower())
+# convert to upper
+print(s.upper())
 # check if upper
 print(s.isupper())
 # length + typecast to s
