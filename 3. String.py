@@ -13,3 +13,5 @@ print("length = " + str(len(s)))
 print(s.index("R"))
 # replace
 print(s.replace("WORLD", "PYTHON"))
+# remove white space
+print(s.strip())
