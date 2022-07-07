@@ -1,0 +1,11 @@
+Python Identity Operators
+is
+Returns True if both variables are the same object
+is not
+Returns True if both variables are not the same object
+
+Python Membership Operators
+in
+Returns True if a sequence with the specified value is present in the object
+not in
+Returns True if a sequence with the specified value is not present in the object

@@ -1,6 +1,5 @@
 import sys
 
-
 print(f"length = {len(argv)}")
 
 for arg in argv:

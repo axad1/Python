@@ -1,4 +1,3 @@
-import sys
 while True:
     print("-----\n1. Login\n2. Register\n3. Exit")
     choice = input("Select: ")
