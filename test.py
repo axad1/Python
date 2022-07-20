@@ -1,3 +1,5 @@
-def func4(country = "Norway"):
-    print(country)
-func4()
+import random
+
+n = random.randint(1,20)
+
+print(n)

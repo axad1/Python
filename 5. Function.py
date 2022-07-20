@@ -26,3 +26,16 @@ func1("Emil", "Tobias", "Linus")
 def func3(**kid):
     pass
 func3(fname = "Tobias", lname = "Refsnes")
+
+# A lambda function is a small anonymous function.
+# can take any number of arguments, but can only have one expression.
+x = lambda a : a + 10
+print(x(5))
+
+string ='GeeksforGeeks'
+# lambda returns a function object
+print(lambda string : string)
+
+x ="GeeksforGeeks"
+# lambda gets pass to print
+(lambda n : print(n))(x)

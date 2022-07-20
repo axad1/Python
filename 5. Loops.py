@@ -30,9 +30,12 @@ for i in range(len(l)):
 
 # for i in range(start, end, increment)
 
+# list Comprehension for loop
+l = ["apple", "banana", "cherry"]
+# print
+[print(x) for x in l]
 
 # The pass Statement
-# for loops cannot be empty, but if you for some reason have a for loop with no content,
-# put in the pass statement to avoid getting an error.
+# for loops cannot be empty
 for x in [0, 1, 2]:
   pass

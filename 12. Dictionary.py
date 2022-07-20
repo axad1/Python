@@ -16,6 +16,7 @@ x = dic.get("model")
 
 # Get Keys
 x = dic.keys()
+# or
 for key in dic:
     print(key)
 for x in dic.keys():
