@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask: {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href={{url_for('static', filename='bootstrap/css/bootstrap.css')}}>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{url_for('home')}}">
+                <img src="{{url_for('static', filename='logo.svg')}} " alt="logo" width="50px">
+                Asad Stuff
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDemo" aria-controls="navbarDemo" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarDemo">
+                
+                <ul class="navbar-nav me-auto mb-2 ms-lg-5 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{url_for('home')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('market')}}">Market</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" >Rs. <b>{{current_user.budget}}</b></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link" >Welcome {{current_user.name}}</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{url_for('logout')}}" class="nav-link">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item ">
+                            <a href="{{url_for('login')}}" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url_for('register')}}" class="nav-link">Register</a>
+                        </li>
+                    {% endif %}
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% with errors = get_flashed_messages(with_categories=True) %}
+        {% for (category,error) in errors %}
+            <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                {{error}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endwith %}
+    
+    {% block main %}{% endblock %}
+    
+    <script src="{{url_for('static', filename='bootstrap/js/bootstrap.bundle.js')}}"></script>
+</body>
+</html>

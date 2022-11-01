@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <h1>Task Master</h1>
+    <table border=1>
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{task.content}}</td>
+            <td>{{task.date.date()}}</td>
+            <td>
+                <a href="/delete/{{task.id}}">Delete</a>
+                <a href="/update/{{task.id}}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br><br>
+    <form action="/" method="POST">
+        <input type="text" name="content">
+        <input type="submit" value="Add Task">
+    </form>
+</body>
+</html>

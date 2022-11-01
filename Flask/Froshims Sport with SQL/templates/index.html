@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Register</h1>
+<form action="register" method="POST">
+    <input type="text" autocomplete="off" autofocus name="name" placeholder="Name">
+    <select name="sport">
+        <option disabled selected>Sport</option>
+        {% for sport in sports %}
+        <option>{{sport}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Register">
+</form>
+<h2>Registrants</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Sport</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for registrant in registrants %}
+        <tr>
+            <td>{{registrant.name}}</td>
+            <td>{{registrant.sport}}</td>
+            <td>
+                <form action="/deregister" method="POST">
+                    <input name="id" type="hidden" value="{{registrant.id}}">
+                    <input type="submit" value="Deregister">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

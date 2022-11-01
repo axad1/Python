@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Todo SQLAlchemy</h1>
+    <form>
+        <input type="text" placeholder="Task" autofocus name="task">
+        <input type="submit">
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>{{task.task}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

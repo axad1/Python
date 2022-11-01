@@ -26,6 +26,8 @@ for x in dic.keys():
 x = dic.values()
 for i in dic:
     print(dic[i])
+
+#  return a view object
 for x in dic.values():
     print(x)
 

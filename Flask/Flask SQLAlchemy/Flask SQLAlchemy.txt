@@ -1,0 +1,46 @@
+
+
+# create table
+db.create_all()
+SQLAlchemy.create_all() and SQLAlchemy.drop_all()
+
+
+# add data
+db.session.add()
+
+
+# query data as list
+db.session.query(Item)
+or
+Todo.query
+or
+Todo.query.get_or_404(id)
+or
+(Getting user by primary key)
+User.query.get(1)
+get_or_404()
+first_or_404()
+
+
+filter
+User.query.filter_by(username='admin').first()
+
+
+# delete
+db.session.delete(task)
+
+# commit changes
+db.session.rollback()
+db.session.commit()
+
+
+
+*Column Types
+Integer
+String(size)
+Text
+DateTime
+Float
+Boolean
+PickleType
+LargeBinary

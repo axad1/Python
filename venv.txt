@@ -1,15 +1,20 @@
 Install
-python -m venv venv_name
+
+1) python -m venv venv_name
 pip install -r requirements.txt
-python -m venv my_project --system-site-packages
+2) python -m venv my_project --system-site-packages
 
-
+activate
 venv\Scripts\activate.bat
+
 deactivate
+
 
 pip list
 pip list --local
 
 pip freeze
-requirements.txt
+pip freeze > requirements.txt
+
+
 

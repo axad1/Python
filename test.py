@@ -1,5 +1,2 @@
-import random
-
-n = random.randint(1,20)
-
-print(n)
+if "125".isdigit():
+	print("yes")

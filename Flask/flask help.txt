@@ -1,0 +1,23 @@
+for get method
+flask.request.args.get("item")
+
+for post method
+flask.request.form.get("item")
+
+link static files
+href = {{url_for("static", filename="main.css")}}
+src = {{url_for("static", filename="app.js")}}
+
+
+flask --debug run
+
+if __name__ == "__main__":
+	app.run(debug=True)
+
+
+python -m flask run --port 9000 --no-debugger --no-reload
+
+
+using terminal (efficient way)
+set FLASK_DEBUG=1
+set FLASK_DEBUG=0

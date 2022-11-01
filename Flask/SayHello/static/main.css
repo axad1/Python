@@ -1,0 +1,9 @@
+input{
+    padding: 20px 40px;
+    color: white;
+    background-color:blueviolet;
+    font-size: large;
+}
+input:active{
+    transform: scale(0.97);
+}

@@ -1,6 +1,10 @@
 # strings are immutable in python
 
-s = "HELLO WORLD"
+name = "Asad"
+
+# format string to user variables
+s = f"HELLO {name}"
+
 
 s.upper()
 s.lower()

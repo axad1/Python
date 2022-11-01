@@ -1,0 +1,7 @@
+'''
+NULL
+INTEGER
+REAL
+TEXT
+BLOB
+'''
