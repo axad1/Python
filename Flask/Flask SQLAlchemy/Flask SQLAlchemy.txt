@@ -1,41 +1,63 @@
 
+# CREATE TABLE
 
-# create table
+db.drop_all()
 db.create_all()
+
 SQLAlchemy.create_all() and SQLAlchemy.drop_all()
 
-
-# add data
+----------------
+INSERT DATA
 db.session.add()
 
+----------------
+# QUERY DATA AS LIST
 
-# query data as list
 db.session.query(Item)
-or
-Todo.query
-or
+Todo.query				(returns sqlalchemy.query object)
+Todo.query.all()		(returns list object)
+
+User.query.get(1)		(Getting user by primary key)
+
 Todo.query.get_or_404(id)
-or
-(Getting user by primary key)
-User.query.get(1)
+
+
 get_or_404()
 first_or_404()
 
+User.query.limit(1).all()
 
-filter
+
+-----------------
+FILTERS
+
 User.query.filter_by(username='admin').first()
+User.query.filter(User.email.endswith('@example.com')).all()
 
 
-# delete
+-----------------
+DELETE
+
 db.session.delete(task)
 
-# commit changes
+-----------------
+COMMIT CHANGES OR ROLLBACK
+
 db.session.rollback()
 db.session.commit()
 
 
+--------------
+ORDER_BY
 
-*Column Types
+User.query.order_by(User.username).all()
+
+todos = Todo.query.order_by(db.desc(Todo.id))
+
+
+--------------
+COLUMN TYPES
+
 Integer
 String(size)
 Text

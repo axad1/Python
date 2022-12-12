@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block title %}Register{% endblock%}
+{% block body %}
+<h1>Register User</h1>
+{% with msgs = get_flashed_messages() %}
+<ul>
+    {% for msg in msgs %}
+    <li>{{ msg }}</li>
+    {% endfor %}
+</ul>
+{% endwith %}
+
+<form method="post">
+    {{ form.csrf_token }}
+
+    {{ form.name.label() }}
+    {{ form.name(placeholder="Name", autocomplete="off") }}
+
+    {{ form.email.label() }}
+    {{ form.email(placeholder="Email") }}
+
+    {{ form.phone.label() }}
+    {{ form.phone(placeholder="Phone") }}
+
+    {{ form.dob.label() }}
+    {{ form.dob() }}
+
+    {{ form.password.label() }}
+    {{ form.password(placeholder="Password") }}
+
+    {{ form.text.label() }}
+    {{ form.text(placeholder="Other Information") }}
+
+    {{ form.submit }}
+
+</form>
+{% endblock %}

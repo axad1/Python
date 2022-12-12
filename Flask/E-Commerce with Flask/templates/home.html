@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+<div class="container-fluid bg-dark text-center mt-3 p-5">
+    <h1 class="display-3" style="font-weight: normal;">Asad Zulfiqar Coding Market</h1>
+    <p class="lead" style="font-weight: normal;">Start purchasing products by clicking the link below</p>
+    <a href="{{url_for('market')}}" class="btn btn-primary btn-lg mt-3">Get Started</a>
+</div>
+
+{% endblock %}

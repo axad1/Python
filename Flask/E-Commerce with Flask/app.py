@@ -1,10 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, HiddenField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, InputRequired, ValidationError
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, logout_user, UserMixin
+from flask_login import LoginManager, login_user, logout_user, UserMixin, login_required, current_user
 
 
 app = Flask(__name__)
@@ -13,6 +13,8 @@ app.config['SECRET_KEY'] = '1234'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+login_manager.login_view = "login"
+login_manager.login_message_category = 'info'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -29,7 +31,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), nullable=False, unique=True)
     password_hash = db.Column(db.String(30), nullable=False)
-    budget = db.Column(db.Integer(), nullable=False, default=0)
+    budget = db.Column(db.Integer(), nullable=False, default=10000)
     items = db.relationship('Item', backref='owned_user', lazy=True)
 
     @property
@@ -66,40 +68,74 @@ class LoginForm(FlaskForm):
     username = StringField(label='Username', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
     submit = SubmitField(label='Login')
+
+class PurchaseForm(FlaskForm):
+    submit = SubmitField(label='Purchase Item', name='buy')
     
+class SellForm(FlaskForm):
+    submit = SubmitField(label='Remove Item', name='sell')
 
+# with app.app_context():
+#     db.drop_all()
+#     db.create_all()
 
-# db.drop_all()
-# db.create_all()
+# app.app_context().push()
 
-# items = [
-#     {
-#         'name': 'Phone',
-#         'price': 200
-#     },
-#     {
-#         'name': 'Laptop',
-#         'price': '900'
-#     },
-#     {
-#         'name': 'Keyboard',
-#         'price': 300
-#     }
-# ]
+items = [
+    {
+        'name': 'Phone',
+        'price': 200
+    },
+    {
+        'name': 'Laptop',
+        'price': '900'
+    },
+    {
+        'name': 'Keyboard',
+        'price': 300
+    }
+]
 
 # for item in items:
-#     db.session.add(Item(name=item['name'], price=item['price']))
+#     db.session.add(Item(item=item['name'], price=item['price']))
 # db.session.commit()
 
 
 @app.route('/')     # Decorator
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 
-@app.route('/market')
+@app.route('/market', methods=['GET', 'POST'])
+@login_required
 def market():
-    result = Item.query.all()
-    return render_template("market.html", items=result)
+    purchase_form = PurchaseForm()
+    sell_form = SellForm()
+
+    if purchase_form.is_submitted() and request.form.get('purchase_item'):
+        item = Item.query.filter_by(id=request.form.get('purchase_item')).first()
+        if item and item.price <= current_user.budget:
+            item.owner = current_user.id
+            current_user.budget -= item.price
+            db.session.commit()
+            flash('Purchased successfully', category='success')
+        else:
+            flash('You don\'t have enough budget', category='danger')
+        return redirect(url_for('market')) 
+
+    elif sell_form.validate_on_submit() and request.form.get('sell_item'):
+        item = Item.query.filter_by(id=request.form.get('sell_item')).first()
+        if item in current_user.items:
+            item.owner = None
+            current_user.budget += item.price
+            db.session.commit()
+            flash('Removed successfully', category='success')
+        else:
+            flash('Not removed', category='danger')
+        return redirect(url_for('market')) 
+
+    items = Item.query.filter_by(owner=None)
+    owned = Item.query.filter_by(owner=current_user.id)
+    return render_template("market.html", items=items, owned=owned, purchase_form=purchase_form, sell_form=sell_form)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -110,7 +146,8 @@ def register():
                     password=form.password1.data)
         db.session.add(user)
         db.session.commit()
-        flash('Account created successfully!', category='success')
+        login_user(user)
+        flash('Account created successfully! You are logged in', category='success')
         return redirect(url_for('market'))
     if form.errors:
         for err in form.errors.values():

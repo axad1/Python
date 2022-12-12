@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Todo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>todos</h1>
+    <form action="/" method="post" oncontextmenu='return false'>
+        {{ form.csrf_token }}
+        {{ form.todo(placeholder="Enter your todo", autocomplete="off", autofocus="on") }}
+        <ul>
+            {% for todo in todos %}
+                <li id="{{ todo.id }}">{{ todo.todo }}</li>
+            {% endfor %}
+        </ul>
+    </form>
+    
+    <footer>
+        <aside>
+            <small>Left click to toggle completed<br>Right click to delete todo</small>
+        </aside>
+        &copy Copyright 2022 - Asad Zulfiqar
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }} "></script>
+</body>
+</html>

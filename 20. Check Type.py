@@ -13,3 +13,5 @@ print(isinstance(l, list))
 print(isinstance(myset, set))
 print(isinstance(t, tuple))
 print(isinstance(dic, dict))
+
+type(value)

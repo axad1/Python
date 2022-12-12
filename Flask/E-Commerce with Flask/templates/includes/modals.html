@@ -1,0 +1,66 @@
+<!-- Modal-MoreInfo -->
+<div class="modal fade" id="Modal-MoreInfo-{{item.id}}" tabindex="-1" aria-labelledby="Modal-MoreInfo" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">{{item.item}}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{item.item}}
+                <br>
+                {{item.price}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal-Buy -->
+<div class="modal fade" id="Modal-Buy-{{item.id}}" tabindex="-1" aria-labelledby="Modal-MoreInfo" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">Purchase Item</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{url_for('market')}}" method="post">
+                {{ purchase_form.hidden_tag() }}
+                <div class="modal-body">
+                    <h5>Are you sure to buy {{item.item}} for <b>{{item.price}}</b> Rs. ?</h5>
+                    <input id="purchase_item" name="purchase_item" type="hidden" value="{{item.id}}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    {{ purchase_form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal-Sell -->
+<div class="modal fade" id="Modal-Sell-{{item.id}}" tabindex="-1" aria-labelledby="Modal-MoreInfo" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">Remove Item</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{url_for('market')}}" method="post">
+                {{ sell_form.hidden_tag() }}
+                <div class="modal-body">
+                    <h5>Are you sure to remove "{{item.item}}"</h5>
+                    <input id="sell_item" name="sell_item" type="hidden" value="{{item.id}}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    {{ sell_form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

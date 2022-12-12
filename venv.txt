@@ -1,20 +1,25 @@
-Install
+Install python virtual environment
 
-1) python -m venv venv_name
-pip install -r requirements.txt
-2) python -m venv my_project --system-site-packages
+-m = mode
 
-activate
+python -m venv venv_name
+
+install with system packages:
+python -m venv my_project --system-site-packages
+
+activate:
 venv\Scripts\activate.bat
 
-deactivate
 
+to stop:
+deactivate
 
 pip list
 pip list --local
 
+create requirement file:
 pip freeze
 pip freeze > requirements.txt
 
-
-
+install requirments:
+pip install -r requirments.txt
